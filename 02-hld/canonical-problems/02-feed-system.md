@@ -248,11 +248,50 @@ Every system design involves trade-offs. Here are the key decisions for the feed
 
 ---
 
-### Final Summary Statement
+## 10. Reliability and Failure Handling
 
+*   **Graceful Degradation:** If the `Ranking Service` fails, the system must fall back to a simple reverse-chronological feed. This is a critical principle: non-essential features should not bring down core functionality.
+*   **Fan-out Worker Failure:** Kafka's consumer group mechanism ensures that if a worker crashes, another worker will pick up the message. Kafka's persistence guarantees that events are not lost.
+*   **Feed Store (Redis) Failure:** Redis clusters should be configured with replicas. If a primary node fails, a replica can be promoted. In a catastrophic failure, feeds can be regenerated from the `Post DB`, but this is a slow, expensive recovery process.
+
+---
+
+## 11. Final Production Architecture
+
+### Summary
 To achieve a scalable and low-latency feed, this design employs a hybrid fan-out strategy. For the majority of users, we use a **fan-out-on-write (push)** model where new posts trigger asynchronous workers via Kafka to update followers' feeds, which are stored in a Redis sorted set. This makes the read path a simple, fast cache lookup. For celebrity users with millions of followers, we switch to a **fan-out-on-read (pull)** model to prevent massive write amplification. During feed generation, the system merges the pre-computed feed with the latest posts from followed celebrities. The entire system is partitioned by `user_id` to scale horizontally and is designed for high availability with graceful degradation for non-critical components.
 
-*   **Reliability and Failure Handling:**
-    *   **Graceful Degradation:** If the `Ranking Service` fails, the system must fall back to a simple reverse-chronological feed. This is a critical principle: non-essential features should not bring down core functionality.
-    *   **Fan-out Worker Failure:** Kafka's consumer group mechanism ensures that if a worker crashes, another worker will pick up the message. Kafka's persistence guarantees that events are not lost.
-    *   **Feed Store (Redis) Failure:** Redis clusters should be configured with replicas. If a primary node fails, a replica can be promoted. In a catastrophic failure, feeds can be regenerated from the `Post DB`, but this is a slow, expensive recovery process.
+### Diagram
+
+```text
+                                       [CDN]
+                                         ^
+                                         | (Media)
+[Client] <---> [DNS] <---> [Global Load Balancer]
+                                         |
+                                         v
+                                [API Gateway]
+                                /            \
+                               /              \
+               (Write Path)   /                \   (Read Path)
+                             v                  v
+                     [Post Service]       [Feed Service] <---------> [Ranking Service]
+                           |                    |                         |
+                           |                    | (1. Get Feed IDs)       | (ML Model)
+                           v                    v                         v
+                     [Post DB]           [Feed Store Cluster]      [Feature Store]
+                    (Cassandra)          (Redis - Sharded)
+                           |
+                           | (Async)
+                           v
+                     [Kafka Topic]
+                    (NewPostEvent)
+                           |
+                           v
+                   [Fan-out Workers]
+                  /                 \
+                 / (Fetch Followers) \ (Push ID)
+                v                     v
+       [User Graph DB]          [Feed Store Cluster]
+       (Neo4j / SQL)            (Redis - Sharded)
+```
