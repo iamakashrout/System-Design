@@ -1,0 +1,96 @@
+<svg width="900" height="620" viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" font-family="Georgia, serif">
+
+  <defs>
+    <marker id="open-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M1 1L9 5L1 9" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="hollow-triangle" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="12" markerHeight="12" orient="auto">
+      <polygon points="1,1 13,7 1,13" fill="white" stroke="#555" stroke-width="1.5"/>
+    </marker>
+    <marker id="dashed-triangle" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="12" markerHeight="12" orient="auto">
+      <polygon points="1,1 13,7 1,13" fill="white" stroke="#555" stroke-width="1.5"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="620" fill="#fafaf8" rx="0"/>
+  <text x="450" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Diagram 1 — Vehicle Hierarchy (Simple)</text>
+  <text x="450" y="56" text-anchor="middle" font-size="13" fill="#666">Concepts: abstract class · inheritance · interface · realization · enumeration</text>
+
+  <rect x="300" y="80" width="300" height="130" rx="6" fill="#f0eeff" stroke="#7c72d8" stroke-width="1.5"/>
+  <text x="450" y="102" text-anchor="middle" font-size="12" fill="#534AB7" font-style="italic">«abstract»</text>
+  <text x="450" y="120" text-anchor="middle" font-size="15" font-weight="bold" fill="#26215C" font-style="italic">Vehicle</text>
+  <line x1="300" y1="130" x2="600" y2="130" stroke="#7c72d8" stroke-width="1"/>
+  <text x="316" y="148" font-size="12" fill="#3C3489">- make: String</text>
+  <text x="316" y="166" font-size="12" fill="#3C3489">- model: String</text>
+  <text x="316" y="184" font-size="12" fill="#3C3489">- fuelType: FuelType</text>
+  <line x1="300" y1="192" x2="600" y2="192" stroke="#7c72d8" stroke-width="1"/>
+  <text x="316" y="204" font-size="12" fill="#26215C">+ startEngine()</text>
+
+  <line x1="450" y1="210" x2="450" y2="230" stroke="#555" stroke-width="1.5"/>
+  <line x1="200" y1="230" x2="700" y2="230" stroke="#555" stroke-width="1.5"/>
+  <line x1="200" y1="230" x2="200" y2="260" stroke="#555" stroke-width="1.5" marker-end="url(#hollow-triangle)"/>
+  <line x1="450" y1="230" x2="450" y2="260" stroke="#555" stroke-width="1.5" marker-end="url(#hollow-triangle)"/>
+  <line x1="700" y1="230" x2="700" y2="260" stroke="#555" stroke-width="1.5" marker-end="url(#hollow-triangle)"/>
+
+  <text x="175" y="248" font-size="11" fill="#555" text-anchor="middle">extends</text>
+  <text x="450" y="248" font-size="11" fill="#555" text-anchor="middle">extends</text>
+  <text x="725" y="248" font-size="11" fill="#555" text-anchor="middle">extends</text>
+
+  <rect x="60" y="260" width="280" height="140" rx="6" fill="#e8f7f1" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="200" y="282" text-anchor="middle" font-size="15" font-weight="bold" fill="#085041">Car</text>
+  <line x1="60" y1="292" x2="340" y2="292" stroke="#1D9E75" stroke-width="1"/>
+  <text x="76" y="310" font-size="12" fill="#085041">- numberOfDoors: int</text>
+  <text x="76" y="328" font-size="12" fill="#085041">- trunkCapacity: double</text>
+  <line x1="60" y1="338" x2="340" y2="338" stroke="#1D9E75" stroke-width="1"/>
+  <text x="76" y="356" font-size="12" fill="#085041">+ openTrunk()</text>
+  <text x="76" y="374" font-size="12" fill="#085041">+ startEngine()</text>
+
+  <rect x="310" y="260" width="280" height="140" rx="6" fill="#e8f7f1" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="450" y="282" text-anchor="middle" font-size="15" font-weight="bold" fill="#085041">Motorcycle</text>
+  <line x1="310" y1="292" x2="590" y2="292" stroke="#1D9E75" stroke-width="1"/>
+  <text x="326" y="310" font-size="12" fill="#085041">- hasSidecar: boolean</text>
+  <text x="326" y="328" font-size="12" fill="#085041">- engineCC: int</text>
+  <line x1="310" y1="338" x2="590" y2="338" stroke="#1D9E75" stroke-width="1"/>
+  <text x="326" y="356" font-size="12" fill="#085041">+ doWheelstand()</text>
+  <text x="326" y="374" font-size="12" fill="#085041">+ startEngine()</text>
+
+  <rect x="560" y="260" width="280" height="140" rx="6" fill="#e8f7f1" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="700" y="282" text-anchor="middle" font-size="15" font-weight="bold" fill="#085041">Truck</text>
+  <line x1="560" y1="292" x2="840" y2="292" stroke="#1D9E75" stroke-width="1"/>
+  <text x="576" y="310" font-size="12" fill="#085041">- payloadCapacity: double</text>
+  <text x="576" y="328" font-size="12" fill="#085041">- numberOfAxles: int</text>
+  <line x1="560" y1="338" x2="840" y2="338" stroke="#1D9E75" stroke-width="1"/>
+  <text x="576" y="356" font-size="12" fill="#085041">+ loadCargo(weight: double)</text>
+  <text x="576" y="374" font-size="12" fill="#085041">+ startEngine()</text>
+
+  <rect x="60" y="460" width="220" height="80" rx="6" fill="#fdf3e3" stroke="#BA7517" stroke-width="1.5"/>
+  <text x="170" y="478" text-anchor="middle" font-size="12" fill="#633806">«interface»</text>
+  <text x="170" y="496" text-anchor="middle" font-size="14" font-weight="bold" fill="#412402">Trackable</text>
+  <line x1="60" y1="506" x2="280" y2="506" stroke="#BA7517" stroke-width="1"/>
+  <text x="76" y="524" font-size="12" fill="#412402">+ getLocation(): String</text>
+
+  <line x1="200" y1="400" x2="200" y2="430" stroke="#555" stroke-width="1.5" stroke-dasharray="7 4"/>
+  <line x1="200" y1="430" x2="170" y2="430" stroke="#555" stroke-width="1.5" stroke-dasharray="7 4"/>
+  <line x1="170" y1="430" x2="170" y2="460" stroke="#555" stroke-width="1.5" stroke-dasharray="7 4" marker-end="url(#dashed-triangle)"/>
+  <text x="130" y="444" font-size="11" fill="#555">implements</text>
+
+  <rect x="590" y="460" width="250" height="100" rx="6" fill="#f5f5f5" stroke="#888" stroke-width="1.5"/>
+  <text x="715" y="478" text-anchor="middle" font-size="12" fill="#444">«enumeration»</text>
+  <text x="715" y="496" text-anchor="middle" font-size="14" font-weight="bold" fill="#222">FuelType</text>
+  <line x1="590" y1="506" x2="840" y2="506" stroke="#888" stroke-width="1"/>
+  <text x="606" y="522" font-size="12" fill="#444">PETROL</text>
+  <text x="606" y="540" font-size="12" fill="#444">DIESEL   ELECTRIC   HYBRID</text>
+
+  <line x1="450" y1="400" x2="450" y2="430" stroke="#888" stroke-width="1" stroke-dasharray="5 3"/>
+  <line x1="450" y1="430" x2="715" y2="430" stroke="#888" stroke-width="1" stroke-dasharray="5 3"/>
+  <line x1="715" y1="430" x2="715" y2="460" stroke="#888" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#open-arrow)"/>
+  <text x="586" y="423" font-size="11" fill="#777" text-anchor="middle">uses</text>
+
+  <rect x="20" y="568" width="860" height="38" rx="4" fill="#f0eeff" stroke="#7c72d8" stroke-width="1"/>
+  <text x="450" y="582" text-anchor="middle" font-size="12" fill="#534AB7" font-weight="bold">Legend: </text>
+  <line x1="510" y1="580" x2="560" y2="580" stroke="#555" stroke-width="1.5" marker-end="url(#hollow-triangle)"/>
+  <text x="570" y="584" font-size="11" fill="#444">Inheritance (extends)</text>
+  <line x1="690" y1="580" x2="740" y2="580" stroke="#555" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#dashed-triangle)"/>
+  <text x="750" y="584" font-size="11" fill="#444">Realization (implements)</text>
+
+</svg>
